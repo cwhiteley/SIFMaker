@@ -1,0 +1,30 @@
+require 'rubygems'
+require 'SIFMaker'
+
+$PLEASE_INDENT_XML = 2
+
+SIF = SIFMaker::US20r1
+
+m = SIF::OtherCode.new(:codeset=>'Local', :othercode => '123')
+n = SIF::OtherCode.new(:codeset=>'Text', :othercode => 'Hello')
+list = []
+list[0] = m
+list[1] = n
+
+
+ol = SIF::OtherCodeList.new(:othercodes => list)
+puts ol.to_xml
+
+puts
+a = SIF::Race.new(:code => 2, :othercodelist => ol, :proportion => 52.5)
+b = SIF::Race.new(:code => 2, :othercodelist => ol, :proportion => 52.5)
+puts a.to_xml
+
+c = []
+c[0] = a
+c[1] = b
+
+d = SIF::RaceList.new(:racelist => c)
+puts 
+puts d.to_xml
+

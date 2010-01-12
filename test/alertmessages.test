@@ -1,0 +1,28 @@
+require 'rubygems'
+require 'SIFMaker'
+
+$PLEASE_INDENT_XML = 2
+
+SIF = SIFMaker::US20r1
+a = SIF::AlertMessage.new(:type=>"Legal", :alertmessage => 'This is a legal alert for Christopher Whiteley')
+b = SIF::AlertMessage.new(:type=>"Other", :alertmessage => "This is a Misc alert for Chris")
+
+@c = [a]
+@d = [a,b]
+
+list = SIF::AlertMessages.new(:alertmessages => @c )
+@list = list.to_xml
+puts
+puts @list
+
+list = SIF::AlertMessages.new(:alertmessages => @d )
+@list = list.to_xml
+puts
+puts @list
+puts
+
+listed = SIF::AlertMessages.parse(@list)
+
+@med = listed.alertmessages[0]
+puts @med.type
+puts listed.alertmessages[1].type

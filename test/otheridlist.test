@@ -1,0 +1,38 @@
+require 'rubygems'
+require 'SIFMaker'
+
+$PLEASE_INDENT_XML = 2
+
+SIF = SIFMaker::US20r1
+a = SIF::OtherId.new(:type=>"RFID", :otherid => '1234567890')
+b = SIF::OtherId.new(:type=>"RFID", :otherid => '0987654321')
+
+@c = [a]
+@d = [a,b]
+
+list1 = SIF::OtherIdList.new(:otheridlist => @c )
+@list = list1.to_xml
+puts
+puts @list
+
+list2 = SIF::OtherIdList.new(:otheridlist => @d )
+@list2 = list2.to_xml
+puts
+puts @list2
+puts
+
+msg = <<EOF
+<OtherIdList>
+<OtherId Type="PIN">123</OtherId>
+<OtherId Type="RFID">4321</OtherId>
+</OtherIdList>
+EOF
+
+puts msg
+
+listed = SIF::OtherIdList.parse(msg)
+puts listed.inspect
+
+@med = listed.otheridlist[0]
+puts @med.type
+puts listed.otheridlist[0].otherid

@@ -1,0 +1,28 @@
+require 'rubygems'
+require 'SIFMaker'
+
+$PLEASE_INDENT_XML = 2
+
+SIF = SIFMaker::US20r1
+a = SIF::ElectronicId.new(:type=>"PIN", :electronicid => '1234567890')
+b = SIF::ElectronicId.new(:type=>"RFID", :electronicid => "rfid`1234567890")
+
+@c = [a]
+@d = [a,b]
+
+list = SIF::ElectronicIdList.new(:electronicidlist => @c )
+@list = list.to_xml
+puts
+puts @list
+
+list = SIF::ElectronicIdList.new(:electronicidlist => @d )
+@list = list.to_xml
+puts
+puts @list
+puts
+
+listed = SIF::ElectronicIdList.parse(@list)
+
+@med = listed.electronicidlist[0]
+puts @med.type
+puts listed.electronicidlist[1].type
