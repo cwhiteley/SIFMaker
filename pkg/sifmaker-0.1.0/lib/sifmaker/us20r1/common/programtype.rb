@@ -2,9 +2,9 @@ require 'roxml'
 
 module SIFMaker
   module US20r1
-    class ProgramStatus
+    class ProgramType
       include ROXML
-      xml_name 'ProgramStatus '
+      xml_name 'ProgramType'
       xml_accessor :code, :from => "Code"
       xml_accessor :othercodelist, :as => [OtherCodeList]
     end

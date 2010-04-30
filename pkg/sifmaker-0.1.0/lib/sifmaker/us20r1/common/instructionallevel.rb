@@ -2,11 +2,11 @@ require 'roxml'
 
 module SIFMaker
   module US20r1
-    class ProgramStatus
+    class InstructionalLevel
       include ROXML
-      xml_name 'ProgramStatus '
+      xml_name 'InstructionalLevel'
       xml_accessor :code, :from => "Code"
-      xml_accessor :othercodelist, :as => [OtherCodeList]
+      xml_accessor :othercodelist, :as => [OtherCode]
     end
     
   end

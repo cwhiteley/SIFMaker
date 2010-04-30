@@ -1,0 +1,93 @@
+require 'rubygems'
+require 'sifmaker'
+
+
+SIF = SIFMaker::US20r1
+
+sp = SIF::StudentPersonal.new()
+
+sp.refid = '1234567890'
+sp.localid = 'P00001'
+sp.stateprovinceid = 'WB0025'
+
+# Name Obj
+name = SIF::Name.new
+name.type = "04"
+name.lastname = "Student"
+name.firstname = "Joe"
+name.preferredname = "Joe"
+
+sp.name = [name]
+
+
+
+#AlertMessage Obj
+msg = SIF::AlertMessage.new
+msg.type = 'Legal'
+msg.alertmessage = 'This is the Legal Alert for Joe Student'
+
+#AlertMessages Obj
+msgs = SIF::AlertMessages.new
+msgs.alertmessage = [msg]
+
+sp.alertmessages = [msgs]
+
+# Demographics 
+demo = SIF::Demographics.new
+demo.gender = "M"
+
+sp.demographics = [demo]
+
+
+#Street Obj
+street = SIF::Street.new
+street.line1 = '6799 33rd Ave.'
+street.streetnumber = 6799
+street.streetname = '33rd'
+street.streettype = 'Ave.'
+
+#Address Obj
+address = SIF::Address.new
+address.street = [street]
+address.city = 'Chicago'
+address.stateprovince = 'IL'
+address.country = 'US'
+address.postalcode = '60660'
+
+puts address.to_xml
+
+#AddressList Obj
+addresslist = SIF::AddressList.new
+addresslist.address = [address]
+sp.addresslist = [addresslist]
+
+puts addresslist.to_xml
+
+#PhoneNumber Obj
+phone = SIF::PhoneNumber.new
+phone.type = "0096"
+phone.number = "(321) 555-1234"
+
+#PhoneNumberList Obj
+phonelist = SIF::PhoneNumberList.new
+phonelist.phonenumber = [phone]
+
+sp.phonenumberlist = [phonelist]
+
+#Email Obj
+email = SIF::Email.new
+email.email = 'Joe.Student@anyschool.com'
+email.type = 'Primary'
+
+#EmailList Obj
+emaillist = SIF::EmailList.new
+emaillist.email = [email]
+
+sp.emaillist = [emaillist]
+
+
+
+sp.ontimegraduationyear = 2007
+
+
+puts sp.to_xml
